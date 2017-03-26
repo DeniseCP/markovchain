@@ -1,0 +1,87 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+ <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+ 
+	<head>
+		<meta charset="UTF-8">
+	  	<meta name="description" content="Web UI For Markvov Text Generator">
+	  	<meta name="keywords" content="HTML,CSS,JavaScript">
+	  	<meta name="author" content="Denise Pereira">
+	  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  	
+		<title>Web UI Markov Text Generator</title>
+		
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<style>
+			*:not(textarea){
+				font-family:Arial, Helvitica, sans-serif;
+			}			
+			body{
+				padding: 15px 0 15px 0;
+			}
+			.mgtop{
+				margin-top:2%
+			}
+			
+			.form-control{
+				width:41%;
+				display:inline;
+			}
+			a, a:hover, a:focus, a:visited{
+				color: #31b0d5
+			}
+			.popover-title{
+				font-weight: 600;
+				color:#fff;
+				background-color:#000;
+			}
+			.popover-content{
+				line-heigth:1.75em;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Markov Text Generator</h1>
+			<h4>Select a text file (*.txt) to be transformed by Markov Chains Algorithm <a href="#" data-toggle="popover" data-original-title="What's Markov's Chain?" data-placement="right" data-content="A Markov chain is a stochastic process with the Markov property. The term 'Markov chain' refers to the sequence of random variables such a process moves through, with the Markov property defining serial dependence only between adjacent periods (as in a 'chain'). It can thus be used for describing systems that follow a chain of linked events, where what happens next depends only on the current state of the system. https://en.wikipedia.org/wiki/Markov_chain#Introduction"><i class="fa fa-info-circle"></i></a></h4>
+			<div class="col-md-8">
+				<form action="#" onsubmit="return checkFile(this);">
+					<div class="row">
+						<div>
+							<input type="text" id="fPath" class="form-control" value=""/>
+						<input type="file" id="fFile" onselect="addNameToInput();" style="display: inline" />
+						</div>
+						<div class=" mgtop">
+							<input type="submit" value="Submit" class="btn btn-success"/>	
+						</div>		
+					</div>
+				</form>
+				<div class="row">
+					<h3 style="white-space:nowrap;">Your text file transformed:</h3>
+					<textarea rows="20" cols="50" readonly="readonly" class="form-control" style="overflow-y:true; overflow-x:false;">
+						
+					</textarea>
+					<div class="mgtop">
+						<button value="Download" id="btn-download" class="btn btn-success"><i class="fa fa-download"></i> Download</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function(){
+			    $('[data-toggle="popover"]').popover();
+			});
+		</script>
+	</body>
+ </html>

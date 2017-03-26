@@ -2,6 +2,7 @@ package main;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -15,38 +16,41 @@ import java.util.Random;
 
 public class MarkovTextGen {
 
-	public static void main(String a[]) throws IOException {
+	/*
+	 * public static void main(String a[]) throws IOException {
+	 * 
+	 * int prefix = 6; Path source = Paths.get("files/green_eggs_and_ham.txt");
+	 * 
+	 * transformTxt(source, prefix);
+	 * 
+	 * }
+	 */
 
-		int prefix = 6;
-		Path source = Paths.get("files/green_eggs_and_ham.txt");
-
-		transformTxt(source, prefix);
-
-	}
-
-	public static void transformTxt(Path file, int prefix) {
+	public static void transformTxt(File file, int prefix) throws IOException {
 
 		Map<String, List<String>> map = new HashMap<String, List<String>>();
 		StringBuffer txt = new StringBuffer();
 		Charset ch = Charset.forName("US-ASCII");
 
+		Path srcPath = Paths.get(file.getPath());
+
 		try {
-			txt = readFile(file, ch);
+			txt = readFile(srcPath, ch);
 
 			map = getMarkovChain(txt, prefix);
-			
+
 			markovIt(map, prefix, ch, txt);
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 
-		
 	}
 
-	private static void markovIt(Map<String, List<String>> map, int prefix, Charset ch, StringBuffer txt) {
+	private static void markovIt(Map<String, List<String>> map, int prefix, Charset ch, StringBuffer txt)
+			throws IOException {
 		Random rd = new Random();
-		try (BufferedWriter wr = Files.newBufferedWriter(Paths.get("files/out"), ch)) {
+		try (BufferedWriter wr = Files.newBufferedWriter(Paths.get("files/text_transformed.txt"), ch)) {
 
 			StringBuffer sb = new StringBuffer();
 			String currentPrefix = txt.substring(0, prefix);
@@ -62,15 +66,16 @@ public class MarkovTextGen {
 				}
 			}
 
-			System.out.println(sb.toString());
+			wr.write(sb.toString());
+			wr.flush();
+			wr.close();
 
 		} catch (Exception ex) {
-			System.out.println("here");
+			System.out.println(ex.getMessage());
 		}
-
 	}
 
-	public static StringBuffer readFile(Path file, Charset ch) {
+	public static StringBuffer readFile(Path file, Charset ch) throws IOException {
 
 		StringBuffer sb = new StringBuffer();
 
